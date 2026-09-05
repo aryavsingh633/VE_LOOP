@@ -1,0 +1,52 @@
+.wrap {
+  background: linear-gradient(90deg, var(--violet-dark), var(--indigo));
+  padding: 16px 0;
+  color: #fff;
+  border-bottom: 1px solid var(--border-strong);
+}
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 37px;
+}
+.slider > svg {
+  color: var(--gold);
+}
+.slider span {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 800;
+}
+.slider strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+.dots {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+}
+.dots button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.dots .active {
+  width: 19px;
+  background: #fff;
+}
+@media (max-width: 480px) {
+  .slider strong {
+    font-size: 12px;
+  }
+  .dots {
+    display: none;
+  }
+}

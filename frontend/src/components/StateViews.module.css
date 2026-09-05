@@ -1,0 +1,23 @@
+.state {
+  min-height: 260px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 24px;
+}
+.state svg {
+  margin: auto;
+  color: var(--violet-light);
+}
+.state h2 {
+  font-family: Sora, sans-serif;
+  font-size: 19px;
+  color: var(--text);
+  margin: 13px 0 5px;
+}
+.state p {
+  font-size: 14px;
+  margin: 0 0 16px;
+  max-width: 350px;
+}

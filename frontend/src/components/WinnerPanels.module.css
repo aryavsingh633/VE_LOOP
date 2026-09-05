@@ -1,0 +1,99 @@
+.panel,
+.youWon {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 16px;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.panel > svg {
+  color: var(--violet-light);
+  flex: 0 0 auto;
+}
+.panel h2,
+.youWon h2 {
+  margin: 0 0 5px;
+  font-family: Sora, sans-serif;
+  font-size: 20px;
+  color: var(--text);
+}
+.panel p,
+.youWon p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.panel span,
+.youWon span {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: var(--violet-light);
+  text-transform: uppercase;
+}
+
+.list {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  background: var(--surface);
+}
+.list h2 {
+  font-family: Sora, sans-serif;
+  font-size: 20px;
+  color: var(--text);
+}
+.list article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.list article svg {
+  color: var(--gold);
+}
+.list strong,
+.list span {
+  display: block;
+  font-size: 13px;
+}
+.list strong {
+  color: var(--text);
+}
+.list span {
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.list time {
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.youWon {
+  background: linear-gradient(160deg, rgba(251, 191, 36, 0.1), var(--surface));
+  border-color: rgba(251, 191, 36, 0.35);
+}
+.youWon > svg {
+  color: var(--gold);
+}
+.youWon span {
+  margin-top: 0;
+  color: var(--gold);
+}
+.youWon .button {
+  margin-top: 17px;
+}
+
+@media (max-width: 450px) {
+  .panel,
+  .youWon {
+    padding: 17px;
+  }
+}

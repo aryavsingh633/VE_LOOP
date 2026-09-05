@@ -1,0 +1,87 @@
+.hero {
+  padding: 88px 0;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+}
+.hero h1 {
+  font-family: Sora, sans-serif;
+  font-size: clamp(36px, 4.6vw, 56px);
+  letter-spacing: -0.03em;
+  margin: 10px 0;
+  color: #fff;
+}
+.hero p {
+  color: var(--text-muted);
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.grid article {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 22px;
+  border-radius: 16px;
+  transition: border-color 0.2s;
+}
+.grid article:hover {
+  border-color: var(--border-strong);
+}
+.grid article > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.grid svg {
+  color: var(--gold);
+}
+.grid span,
+.grid small {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.grid h2 {
+  font-family: Sora, sans-serif;
+  font-size: 19px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 24px 0 5px;
+}
+.grid strong {
+  color: var(--violet-light);
+  font-size: 14px;
+}
+.grid p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 13px 0 5px;
+}
+.grid time {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+.grid small {
+  float: right;
+  background: var(--surface-2);
+  padding: 5px 7px;
+  border-radius: 5px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 450px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,48 @@
+.timer {
+  display: flex;
+  gap: 9px;
+}
+.timer > div {
+  min-width: 55px;
+  text-align: center;
+  padding: 9px 5px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+}
+.timer b {
+  display: block;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.08;
+  font-variant-numeric: tabular-nums;
+  font-family: Sora, sans-serif;
+}
+.timer span {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+.compact {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--violet-light);
+  font-variant-numeric: tabular-nums;
+}
+.ended {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+}
+@media (max-width: 430px) {
+  .timer {
+    gap: 5px;
+  }
+  .timer > div {
+    min-width: 49px;
+  }
+  .timer b {
+    font-size: 17px;
+  }
+}

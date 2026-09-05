@@ -1,0 +1,145 @@
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+.step {
+  min-height: 120px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: border-color 0.2s;
+}
+.step:hover {
+  border-color: var(--border-strong);
+}
+.step b {
+  display: block;
+  font-family: Sora, sans-serif;
+  font-size: 13px;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.1em;
+}
+.step span {
+  display: block;
+  margin-top: 14px;
+  font-weight: 650;
+  font-size: 15px;
+  color: var(--text);
+}
+.step i {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  z-index: 2;
+  width: 22px;
+  border-top: 1px dashed var(--border-strong);
+}
+
+.trust {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+.trustGrid article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  transition: border-color 0.2s;
+}
+.trustGrid article:hover {
+  border-color: var(--border-strong);
+}
+.trustGrid svg {
+  color: var(--violet-light);
+}
+.trustGrid h3 {
+  font-family: Sora, sans-serif;
+  font-size: 15px;
+  margin: 18px 0 7px;
+  color: var(--text);
+}
+.trustGrid p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.faq details,
+.rules details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 18px;
+  margin-bottom: 10px;
+}
+.faq summary,
+.rules summary {
+  padding: 17px 3px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 650;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker,
+.rules summary::-webkit-details-marker {
+  display: none;
+}
+.faq p,
+.rules p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 3px 16px;
+}
+
+.rules {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  background: var(--surface);
+}
+.rules h2 {
+  font-family: Sora, sans-serif;
+  font-size: 21px;
+  margin: 0 0 16px;
+  color: var(--text);
+}
+.rules ul {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 0;
+  padding-left: 23px;
+}
+
+@media (max-width: 850px) {
+  .steps,
+  .trustGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .step i {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .steps,
+  .trustGrid {
+    grid-template-columns: 1fr;
+  }
+}

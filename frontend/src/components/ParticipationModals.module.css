@@ -1,0 +1,85 @@
+.copy {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+.feeBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+.feeBox span {
+  padding: 13px;
+  color: var(--text-faint);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.feeBox span + span {
+  border-left: 1px solid var(--border);
+}
+.feeBox strong {
+  display: block;
+  color: var(--text);
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 5px;
+  font-family: Sora, sans-serif;
+}
+.good,
+.warn {
+  font-size: 13px;
+  margin: 14px 0;
+}
+.good {
+  color: #4ade80;
+}
+.warn {
+  color: #fb9a9a;
+}
+.success {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.success svg {
+  color: var(--gold);
+  width: 36px;
+  height: 36px;
+  margin: 6px;
+}
+.form {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.form label {
+  display: grid;
+  gap: 5px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.form input {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 9px;
+  padding: 10px;
+  color: var(--text);
+  font: inherit;
+}
+.form input:focus {
+  outline: 2px solid var(--violet);
+  border-color: var(--border-strong);
+}

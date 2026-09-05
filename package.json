@@ -1,0 +1,14 @@
+{
+  "name": "velop-rewards",
+  "private": true,
+  "version": "1.0.0",
+  "description": "VELOOP Rewards Giveaway Platform monorepo",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "test": "npm run test --prefix backend",
+    "start": "npm run start --prefix backend"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}
