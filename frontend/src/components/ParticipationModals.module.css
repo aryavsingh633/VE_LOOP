@@ -1,85 +1,260 @@
 .copy {
   font-size: 14px;
-  line-height: 1.6;
   color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
-.actions {
+
+.copy strong {
+  color: #ffffff;
+}
+
+/* Login Modal */
+.loginModalContent {
   display: flex;
-  gap: 9px;
-  margin-top: 22px;
-  flex-wrap: wrap;
-}
-.feeBox {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 20px 0;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-}
-.feeBox span {
-  padding: 13px;
-  color: var(--text-faint);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-.feeBox span + span {
-  border-left: 1px solid var(--border);
-}
-.feeBox strong {
-  display: block;
-  color: var(--text);
-  font-size: 16px;
-  letter-spacing: 0;
-  text-transform: none;
-  margin-top: 5px;
-  font-family: Sora, sans-serif;
-}
-.good,
-.warn {
-  font-size: 13px;
-  margin: 14px 0;
-}
-.good {
-  color: #4ade80;
-}
-.warn {
-  color: #fb9a9a;
-}
-.success {
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1.6;
 }
-.success svg {
-  color: var(--gold);
-  width: 36px;
-  height: 36px;
-  margin: 6px;
-}
-.form {
+
+.lockIconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--violet-light);
   display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Confirm Join Content */
+.confirmContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.receiptBox {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  margin-top: 18px;
 }
-.form label {
-  display: grid;
-  gap: 5px;
+
+.receiptRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+}
+
+.receiptLabel {
   color: var(--text-muted);
-  font-size: 12px;
+}
+
+.receiptVal {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.receiptValRed {
+  color: #fb7185;
   font-weight: 700;
 }
-.form input {
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  border-radius: 9px;
-  padding: 10px;
-  color: var(--text);
-  font: inherit;
+
+.receiptValGreen {
+  color: #34d399;
+  font-weight: 700;
 }
-.form input:focus {
-  outline: 2px solid var(--violet);
-  border-color: var(--border-strong);
+
+.receiptDivider {
+  height: 1px;
+  background: var(--border);
+  margin: 2px 0;
+}
+
+.validationMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+}
+
+.goodMessage {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34d399;
+}
+
+.warnMessage {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--gold);
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: #fb7185;
+  font-size: 12.5px;
+}
+
+.trustNote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: -4px;
+}
+
+.shieldIcon {
+  color: var(--emerald);
+}
+
+/* Success Content */
+.successContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.celebrateIcon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 70, 239, 0.2) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.25);
+}
+
+.successHeading {
+  font-family: Sora, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.ticketPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  color: #34d399;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 12px 0 24px;
+}
+
+.ticketIcon {
+  color: #10b981;
+}
+
+/* Claim Modal */
+.claimWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.prizeClaimBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.claimIcon {
+  color: var(--gold);
+}
+
+.claimForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.fieldInput {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+
+@media (max-width: 480px) {
+  .fieldInput {
+    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+    padding: 11px 12px;
+  }
+  .receiptBox {
+    padding: 14px 14px;
+    gap: 10px;
+  }
+  .receiptRow {
+    font-size: 13px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .receiptBox {
+    padding: 12px 10px;
+  }
+  .receiptRow {
+    flex-wrap: wrap;
+    font-size: 12.5px;
+  }
 }

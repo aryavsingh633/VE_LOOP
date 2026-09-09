@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import styles from './PrizeSlider.module.css';
 import Iphone from '../assets/images/IPhone_Image.png';
 import Watch from '../assets/images/Watch_ Image.png';
@@ -25,7 +25,7 @@ export function PrizeSlider({ prizes = [] }) {
     if (paused || prizes.length < 2) return undefined;
     const id = setInterval(
       () => setIndex((current) => (current + 1) % prizes.length),
-      3000,
+      3600,
     );
     return () => clearInterval(id);
   }, [paused, prizes.length]);
@@ -35,9 +35,15 @@ export function PrizeSlider({ prizes = [] }) {
   const prize = prizes[index];
   const prizeImage = prizeImageMap[prize.name];
 
-  const handlePrev = () =>
+  const handlePrev = (e) => {
+    e.stopPropagation();
     setIndex((current) => (current - 1 + prizes.length) % prizes.length);
-  const handleNext = () => setIndex((current) => (current + 1) % prizes.length);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setIndex((current) => (current + 1) % prizes.length);
+  };
 
   return (
     <div
@@ -45,40 +51,53 @@ export function PrizeSlider({ prizes = [] }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <button
-        className={styles.nav}
-        onClick={handlePrev}
-        aria-label="Previous prize"
-      >
-        <ChevronLeft size={20} />
-      </button>
-
-      <div className={styles.prizeDisplay}>
-        {prizeImage ? (
-          <img
-            src={prizeImage}
-            alt={prize.name}
-            className={styles.prizeImage}
-          />
-        ) : (
-          <span className={styles.placeholder}>✦</span>
-        )}
+      <div className={styles.topBadge}>
+        <Sparkles size={13} className={styles.sparkle} />
+        <span>Featured Prize #{prize.position || index + 1}</span>
       </div>
 
-      <button
-        className={styles.nav}
-        onClick={handleNext}
-        aria-label="Next prize"
-      >
-        <ChevronRight size={20} />
-      </button>
+      <div className={styles.displayArea}>
+        <button
+          className={`${styles.navBtn} ${styles.prevBtn}`}
+          onClick={handlePrev}
+          aria-label="Previous reward"
+        >
+          <ChevronLeft size={18} />
+        </button>
 
-      <div className={styles.dots}>
-        {prizes.map((_, i) => (
+        <div className={styles.imageWrap}>
+          <div className={styles.spotlight} />
+          {prizeImage ? (
+            <img
+              key={prize.name}
+              src={prizeImage}
+              alt={prize.name}
+              className={styles.prizeImg}
+            />
+          ) : (
+            <span className={styles.placeholder}>✦</span>
+          )}
+        </div>
+
+        <button
+          className={`${styles.navBtn} ${styles.nextBtn}`}
+          onClick={handleNext}
+          aria-label="Next reward"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+
+      <div className={styles.prizeDetails}>
+        <h4 className={styles.prizeTitle}>{prize.name}</h4>
+      </div>
+
+      <div className={styles.indicators}>
+        {prizes.map((p, i) => (
           <button
             key={i}
-            aria-label={`Show prize ${i + 1}`}
-            className={i === index ? styles.active : ''}
+            aria-label={`View prize ${i + 1}`}
+            className={`${styles.dot} ${i === index ? styles.activeDot : ''}`}
             onClick={() => setIndex(i)}
           />
         ))}

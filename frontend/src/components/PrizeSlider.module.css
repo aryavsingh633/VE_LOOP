@@ -1,108 +1,174 @@
 .slider {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  height: 300px;
   width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  z-index: 2;
 }
 
-.nav {
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
+.slider:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.topBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--violet-light);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+.sparkle {
+  color: var(--gold);
+}
+
+.displayArea {
+  position: relative;
+  width: 100%;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: var(--text);
-  transition: all 0.2s ease;
 }
 
-.nav:hover {
-  background: rgba(139, 92, 246, 0.25);
-  transform: scale(1.05);
-}
-
-.nav svg {
-  color: var(--violet-light);
-}
-
-.prizeDisplay {
-  flex: 1;
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
-  height: 100%;
-  max-width: 280px;
-  background: linear-gradient(155deg, var(--surface-2), var(--surface));
-  border: 1px solid var(--border-strong);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
 }
 
-.prizeImage {
-  max-width: 85%;
-  max-height: 240px;
-  width: auto;
-  height: auto;
+.spotlight {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.prizeImg {
+  position: relative;
+  z-index: 1;
+  max-width: 220px;
+  max-height: 220px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.65));
+  animation: floatImage 4s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
 }
 
 .placeholder {
-  font-size: 80px;
-  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3));
+  font-size: 48px;
+  color: var(--violet-light);
 }
 
-.dots {
+.navBtn {
   position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(18, 15, 36, 0.8);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
 }
 
-.dots button {
+.navBtn:hover {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.prevBtn {
+  left: 0;
+}
+
+.nextBtn {
+  right: 0;
+}
+
+.prizeDetails {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.prizeTitle {
+  font-family: Sora, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  background: rgba(139, 92, 246, 0.3);
-  border: 1px solid rgba(139, 92, 246, 0.5);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  padding: 0;
+  transition: all 0.25s;
 }
 
-.dots button:hover {
-  background: rgba(139, 92, 246, 0.5);
-}
-
-.dots button.active {
-  background: var(--violet-light);
+.activeDot {
   width: 24px;
-  border-radius: 99px;
+  background: var(--gradient-cta);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
 }
 
-@media (max-width: 768px) {
+@keyframes floatImage {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-8px) scale(1.02); }
+}
+
+@media (max-width: 480px) {
   .slider {
-    height: 250px;
-    gap: 12px;
+    padding: 16px 12px;
   }
-
-  .nav {
-    width: 36px;
-    height: 36px;
+  .displayArea {
+    height: 200px;
   }
-
-  .prizeImage {
-    max-height: 180px;
+  .prizeImg {
+    max-width: 170px;
+    max-height: 170px;
   }
-
-  .placeholder {
-    font-size: 60px;
+  .prizeTitle {
+    font-size: 17px;
   }
 }

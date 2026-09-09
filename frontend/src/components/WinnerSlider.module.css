@@ -1,52 +1,158 @@
 .wrap {
-  background: linear-gradient(90deg, var(--violet-dark), var(--indigo));
-  padding: 16px 0;
-  color: #fff;
-  border-bottom: 1px solid var(--border-strong);
+  padding: 12px 0 24px;
+  position: relative;
+  z-index: 10;
 }
-.slider {
+
+.banner {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 37px;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(18, 15, 36, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-full);
+  padding: 8px 20px 8px 10px;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.2s;
 }
-.slider > svg {
-  color: var(--gold);
+
+.banner:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 6px 24px -5px rgba(245, 158, 11, 0.2);
 }
-.slider span {
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 800;
-}
-.slider strong {
-  font-size: 14px;
-  font-weight: 650;
-}
-.dots {
-  margin-left: auto;
+
+.leftLabel {
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trophyIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #1a0f02;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.winnerContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.maskedUser {
+  font-family: monospace, sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+}
+
+.actionText {
+  color: var(--text-muted);
+}
+
+.prizeWon {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.hallOfFameLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--violet-light);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.hallOfFameLink:hover {
+  color: #ffffff;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
   gap: 5px;
 }
-.dots button {
+
+.dot {
   width: 6px;
   height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
   padding: 0;
-  border: 0;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.2s;
 }
-.dots .active {
-  width: 19px;
-  background: #fff;
+
+.activeDot {
+  width: 16px;
+  border-radius: 4px;
+  background: var(--gold);
 }
-@media (max-width: 480px) {
-  .slider strong {
-    font-size: 12px;
+
+@media (max-width: 768px) {
+  .banner {
+    flex-wrap: wrap;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .winnerContent {
+    width: 100%;
+    order: 3;
+    font-size: 13px;
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+  .rightActions {
+    margin-left: auto;
   }
   .dots {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .winnerContent {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .tag {
+    font-size: 10px;
   }
 }

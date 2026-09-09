@@ -1,99 +1,209 @@
-.panel,
-.youWon {
+/* Live Panel */
+.livePanel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  border-radius: 16px;
-  padding: 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-.panel > svg {
-  color: var(--violet-light);
-  flex: 0 0 auto;
-}
-.panel h2,
-.youWon h2 {
-  margin: 0 0 5px;
-  font-family: Sora, sans-serif;
-  font-size: 20px;
-  color: var(--text);
-}
-.panel p,
-.youWon p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-.panel span,
-.youWon span {
-  display: block;
-  margin-top: 10px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  color: var(--violet-light);
-  text-transform: uppercase;
 }
 
-.list {
+.clockIconWrap {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: var(--violet-light);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.liveContent h3 {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.liveContent p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.statusChip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* List Section */
+.listSection {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 22px;
-  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
 }
-.list h2 {
-  font-family: Sora, sans-serif;
-  font-size: 20px;
-  color: var(--text);
-}
-.list article {
+
+.listHeader {
   display: flex;
   align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.listHeader h3 {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.trophyIcon {
+  color: var(--gold);
+}
+
+.winnersList {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  padding: 12px 0;
-  border-top: 1px solid var(--border);
 }
-.list article svg {
+
+.winnerItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.awardIcon {
   color: var(--gold);
 }
-.list strong,
-.list span {
-  display: block;
+
+.winnerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.winnerUser {
+  font-family: monospace, sans-serif;
   font-size: 13px;
+  color: #ffffff;
 }
-.list strong {
-  color: var(--text);
-}
-.list span {
+
+.winnerPrize {
+  font-size: 12px;
   color: var(--text-muted);
-  margin-top: 2px;
 }
-.list time {
+
+.winnerTime {
   margin-left: auto;
-  color: var(--text-faint);
   font-size: 11px;
+  color: var(--text-faint);
 }
 
-.youWon {
-  background: linear-gradient(160deg, rgba(251, 191, 36, 0.1), var(--surface));
-  border-color: rgba(251, 191, 36, 0.35);
-}
-.youWon > svg {
-  color: var(--gold);
-}
-.youWon span {
-  margin-top: 0;
-  color: var(--gold);
-}
-.youWon .button {
-  margin-top: 17px;
+.emptyNote {
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-@media (max-width: 450px) {
-  .panel,
-  .youWon {
-    padding: 17px;
-  }
+/* You Won Banner */
+.youWonBanner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 70, 239, 0.12) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+  animation: pulseWon 3s ease-in-out infinite alternate;
+}
+
+.partyIconWrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #1a0f02;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+}
+
+.youWonContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.congratsBadge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold-light);
+}
+
+.youWonContent h2 {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.youWonContent p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+/* Claimed Banner */
+.claimedBanner {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.checkIconWrap {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.claimedContent h2 {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 6px 0;
+}
+
+.claimStatusBadge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #34d399;
+  letter-spacing: 0.1em;
+}
+
+.claimedContent p {
+  font-size: 13.5px;
+  color: #a7f3d0;
+  line-height: 1.55;
+}
+
+@keyframes pulseWon {
+  0% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.15); }
+  100% { box-shadow: 0 0 50px rgba(245, 158, 11, 0.35); }
 }

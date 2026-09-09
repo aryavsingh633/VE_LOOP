@@ -1,4 +1,4 @@
-import { ArrowUpRight, Users, Trophy } from 'lucide-react';
+import { ArrowUpRight, Users, Trophy, Sparkles, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Countdown } from './Countdown';
@@ -11,7 +11,6 @@ import Iphone from '../assets/images/IPhone_Image.png';
 import Watch from '../assets/images/Watch_ Image.png';
 import Earpods from '../assets/images/Earpod_Image.png';
 
-// Map prize names to images
 const prizeImageMap = {
   'iPhone 15 Pro': Iphone,
   'Apple Watch Series 9': Watch,
@@ -24,53 +23,92 @@ const prizeImageMap = {
 export function PrizeCard({ giveaway, featured = false }) {
   const { prize } = giveaway;
   const prizeImage = prizeImageMap[prize.name] || prize.image || '✦';
+  const isActive = giveaway.status === 'ACTIVE';
 
   return (
     <motion.article
       className={`${styles.card} ${featured ? styles.featured : ''}`}
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.35 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className={styles.art}>
-        {typeof prizeImage === 'string' && prizeImage === '✦' ? (
-          <span aria-hidden="true">{prizeImage}</span>
-        ) : (
-          <img src={prizeImage} alt={prize.name} />
-        )}
-        <div className={styles.orbit} />
+      {/* Top badges */}
+      <div className={styles.topline}>
+        <div className={styles.leftPills}>
+          <span className={styles.rankBadge}>
+            PRIZE #{prize.position || 1}
+          </span>
+          <span className={styles.typeBadge}>
+            {prize.prizeType === 'GIFT_CARD' ? 'DIGITAL VOUCHER' : 'TECH REWARD'}
+          </span>
+        </div>
+        <span className={`${styles.status} ${styles[giveaway.status]}`}>
+          {isActive && <span className={styles.pulseDot} />}
+          {giveaway.status.replace('_', ' ')}
+        </span>
       </div>
+
+      {/* Visual stage */}
+      <div className={styles.artStage}>
+        <div className={styles.glow} />
+        {typeof prizeImage === 'string' && prizeImage.length < 5 ? (
+          <span className={styles.emojiArt} aria-hidden="true">
+            {prizeImage}
+          </span>
+        ) : (
+          <img
+            src={prizeImage}
+            alt={prize.name}
+            className={styles.prizeImg}
+            loading="lazy"
+          />
+        )}
+      </div>
+
+      {/* Content */}
       <div className={styles.content}>
-        <div className={styles.topline}>
-          <span>PRIZE {prize.position}</span>
-          <span className={`${styles.status} ${styles[giveaway.status]}`}>
-            {giveaway.status.replace('_', ' ')}
-          </span>
-        </div>
-        <h3>{prize.name}</h3>
-        <p>{prize.description}</p>
-        <div className={styles.meta}>
-          <span>
-            <Trophy size={14} /> {giveaway.winnerCount}{' '}
-            {giveaway.winnerCount === 1 ? 'winner' : 'winners'}
-          </span>
-          <span>
-            <Users size={14} /> {formatNumber(giveaway.participantCount)}{' '}
-            participants
-          </span>
-        </div>
-        <div className={styles.bottom}>
-          <div>
-            <small>Entry fee</small>
-            <strong>
-              {formatEntry(prize.entryAmount, prize.entryCurrency)}
-            </strong>
+        <h3 className={styles.title}>{prize.name}</h3>
+        <p className={styles.description}>{prize.description}</p>
+
+        <div className={styles.metaRow}>
+          <div className={styles.metaItem}>
+            <Trophy size={14} className={styles.trophyIcon} />
+            <span>
+              <strong>{giveaway.winnerCount}</strong>{' '}
+              {giveaway.winnerCount === 1 ? 'Winner' : 'Winners'}
+            </span>
           </div>
-          <Countdown endAt={giveaway.endAt} compact />
+          <div className={styles.metaItem}>
+            <Users size={14} className={styles.usersIcon} />
+            <span>
+              <strong>{formatNumber(giveaway.participantCount)}</strong>{' '}
+              {giveaway.participantCount === 1 ? 'Participant' : 'Participants'}
+            </span>
+          </div>
         </div>
-        <Link className="button buttonFull" to={`/giveaway/${giveaway.slug}`}>
-          View giveaway <ArrowUpRight size={16} />
+
+        {/* Pricing & Countdown */}
+        <div className={styles.pricingBox}>
+          <div className={styles.feeGroup}>
+            <span className={styles.feeLabel}>Entry Requirement</span>
+            <div className={styles.feeValue}>
+              <Tag size={13} className={styles.tagIcon} />
+              <strong>{formatEntry(prize.entryAmount, prize.entryCurrency)}</strong>
+            </div>
+          </div>
+          <div className={styles.countdownGroup}>
+            <Countdown endAt={giveaway.endAt} compact />
+          </div>
+        </div>
+
+        {/* CTA */}
+        <Link
+          className={`button buttonFull ${styles.ctaButton}`}
+          to={`/giveaway/${giveaway.slug}`}
+        >
+          <span>View Details & Enter</span>
+          <ArrowUpRight size={16} />
         </Link>
       </div>
     </motion.article>

@@ -1,5 +1,15 @@
 import { useState } from 'react';
-import { ArrowRight, LockKeyhole } from 'lucide-react';
+import {
+  ArrowRight,
+  ShieldCheck,
+  Lock,
+  Sparkles,
+  Eye,
+  EyeOff,
+  KeyRound,
+  CheckCircle2,
+  Gift,
+} from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import ticketArt from '../assets/images/ticket-hand.png';
@@ -9,17 +19,22 @@ export function AuthPage({ mode }) {
   const isRegister = mode === 'register';
   const { login, register } = useAuth();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
   const submit = async (event) => {
     event.preventDefault();
     setError('');
     setBusy(true);
     try {
-      if (isRegister) await register(form);
-      else await login({ email: form.email, password: form.password });
+      if (isRegister) {
+        await register(form);
+      } else {
+        await login({ email: form.email, password: form.password });
+      }
       navigate(location.state?.from || '/giveaways');
     } catch (requestError) {
       setError(requestError.message);
@@ -27,101 +42,209 @@ export function AuthPage({ mode }) {
       setBusy(false);
     }
   };
+
+  const fillDemoAccount = () => {
+    setForm({
+      name: 'Demo Member',
+      email: 'member@velop.demo',
+      password: 'DemoPass123',
+    });
+    setError('');
+  };
+
   return (
     <section className={styles.wrap}>
-      <div className={styles.art}>
-        <div className={styles.badge}>
-          <LockKeyhole size={17} /> VELOOP Rewards
+      {/* Left Showcase Banner */}
+      <div className={styles.showcase}>
+        <div className={styles.ambientGlow} />
+
+        <div className={styles.showcaseTop}>
+          <div className={styles.badge}>
+            <Sparkles size={14} className={styles.goldIcon} />
+            <span>VELOOP REWARDS ECOSYSTEM</span>
+          </div>
+          <h1 className={styles.showcaseHeading}>
+            Rewards are better when the rules are clear.
+          </h1>
+          <p className={styles.showcaseSub}>
+            Join a verified platform where balances are protected, entries are single-record fair, and winner draws are cryptographically verifiable.
+          </p>
         </div>
-        <h1>Rewards are better when the rules are clear.</h1>
-        <p>
-          Your balance and participation are confirmed by the service — never
-          just by what a browser displays.
-        </p>
-        <div className={styles.orb}>
-          <img src={ticketArt} alt="" />
+
+        {/* Feature List */}
+        <div className={styles.featureList}>
+          <div className={styles.featureItem}>
+            <div className={styles.featureIcon}>
+              <ShieldCheck size={18} />
+            </div>
+            <div>
+              <strong>Single-Entry Integrity</strong>
+              <p>One verified entry per event ensures true participant odds.</p>
+            </div>
+          </div>
+
+          <div className={styles.featureItem}>
+            <div className={styles.featureIcon}>
+              <Lock size={18} />
+            </div>
+            <div>
+              <strong>Encrypted Privacy</strong>
+              <p>Identities are masked on public boards. Shipping data is private.</p>
+            </div>
+          </div>
+
+          <div className={styles.featureItem}>
+            <div className={styles.featureIcon}>
+              <Gift size={18} />
+            </div>
+            <div>
+              <strong>Instant Digital & Hardware Rewards</strong>
+              <p>Amazon gift cards and flagship electronics direct to winners.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Art Orb */}
+        <div className={styles.artOrb}>
+          <img src={ticketArt} alt="VELOOP verified entry ticket" />
         </div>
       </div>
+
+      {/* Right Form Card */}
       <div className={styles.formSide}>
-        <form className={styles.form} onSubmit={submit}>
-          <Link className={styles.logo} to="/giveaways">
-            VELOOP <span>REWARDS</span>
-          </Link>
-          <div className="eyebrow">
-            {isRegister ? 'Create account' : 'Welcome back'}
+        <div className={styles.formCard}>
+          <div className={styles.brandHeader}>
+            <div className={styles.mark}>VR</div>
+            <span className={styles.brandName}>VELOOP REWARDS</span>
           </div>
-          <h2>
-            {isRegister
-              ? 'Start participating with confidence.'
-              : 'Sign in to your rewards.'}
-          </h2>
-          <p>
-            {isRegister
-              ? 'Use the development demo data only for local testing.'
-              : 'Use a seeded development account or your own registered account.'}
-          </p>
-          {error && <div className={styles.error}>{error}</div>}
-          {isRegister && (
-            <label>
-              Full name
+
+          {/* Mode Switch Tabs */}
+          <div className={styles.modeTabs}>
+            <Link
+              to="/login"
+              className={`${styles.modeTab} ${!isRegister ? styles.activeModeTab : ''}`}
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/register"
+              className={`${styles.modeTab} ${isRegister ? styles.activeModeTab : ''}`}
+            >
+              Create Account
+            </Link>
+          </div>
+
+          <div className={styles.titleGroup}>
+            <h2>
+              {isRegister
+                ? 'Join VELOOP Rewards'
+                : 'Welcome Back'}
+            </h2>
+            <p>
+              {isRegister
+                ? 'Create your account to start collecting entries and claiming rewards.'
+                : 'Access your rewards wallet, active entries, and prize status.'}
+            </p>
+          </div>
+
+          {error && (
+            <div className={styles.errorAlert}>
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form className={styles.form} onSubmit={submit}>
+            {isRegister && (
+              <label className={styles.fieldLabel}>
+                <span>Full Name</span>
+                <input
+                  required
+                  minLength="2"
+                  autoComplete="name"
+                  placeholder="Alex Morgan"
+                  value={form.name}
+                  className={styles.input}
+                  onChange={(event) =>
+                    setForm({ ...form, name: event.target.value })
+                  }
+                />
+              </label>
+            )}
+
+            <label className={styles.fieldLabel}>
+              <span>Email Address</span>
               <input
                 required
-                minLength="2"
-                autoComplete="off"
-                value={form.name}
+                type="email"
+                autoComplete="email"
+                placeholder="member@velop.demo"
+                value={form.email}
+                className={styles.input}
                 onChange={(event) =>
-                  setForm({ ...form, name: event.target.value })
+                  setForm({ ...form, email: event.target.value })
                 }
               />
             </label>
-          )}
-          <label>
-            Email address
-            <input
-              required
-              type="email"
-              autoComplete="off"
-              value={form.email}
-              onChange={(event) =>
-                setForm({ ...form, email: event.target.value })
-              }
-            />
-          </label>
-          <label>
-            Password
-            <input
-              required
-              type="password"
-              minLength="10"
-              autoComplete="off"
-              value={form.password}
-              onChange={(event) =>
-                setForm({ ...form, password: event.target.value })
-              }
-            />
-            <small>
-              At least 10 characters with upper/lowercase letters and a number.
-            </small>
-          </label>
-          <button className="button buttonFull" disabled={busy}>
-            {busy
-              ? 'Please wait…'
-              : isRegister
-                ? 'Create VELOOP account'
-                : 'Log in'}{' '}
-            <ArrowRight size={16} />
-          </button>
-          <div className={styles.switch}>
-            {isRegister ? 'Already have an account?' : 'New to VELOOP?'}{' '}
-            <Link to={isRegister ? '/login' : '/register'}>
-              {isRegister ? 'Log in' : 'Create an account'}
-            </Link>
+
+            <label className={styles.fieldLabel}>
+              <span>Password</span>
+              <div className={styles.passwordWrap}>
+                <input
+                  required
+                  type={showPassword ? 'text' : 'password'}
+                  minLength="10"
+                  autoComplete={isRegister ? 'new-password' : 'current-password'}
+                  placeholder="••••••••••••"
+                  value={form.password}
+                  className={styles.input}
+                  onChange={(event) =>
+                    setForm({ ...form, password: event.target.value })
+                  }
+                />
+                <button
+                  type="button"
+                  className={styles.toggleVisibility}
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              <small className={styles.passwordHint}>
+                At least 10 characters with mixed letters and numbers.
+              </small>
+            </label>
+
+            <button
+              type="submit"
+              className="button buttonFull buttonLarge"
+              disabled={busy}
+            >
+              {busy
+                ? 'Verifying Credentials...'
+                : isRegister
+                  ? 'Create VELOOP Account'
+                  : 'Sign In to Account'}
+              <ArrowRight size={16} />
+            </button>
+          </form>
+
+          {/* Quick 1-click Demo Fill */}
+          <div className={styles.demoBox}>
+            <div className={styles.demoHead}>
+              <KeyRound size={14} className={styles.keyIcon} />
+              <span>Developer Quick Testing</span>
+            </div>
+            <p>Seeded test credentials: <strong>member@velop.demo</strong></p>
+            <button
+              type="button"
+              className={styles.fillBtn}
+              onClick={fillDemoAccount}
+            >
+              Autofill Demo Account
+            </button>
           </div>
-          <div className={styles.demo}>
-            Development seed: <strong>member@velop.demo</strong> /{' '}
-            <strong>DemoPass123</strong>
-          </div>
-        </form>
+        </div>
       </div>
     </section>
   );

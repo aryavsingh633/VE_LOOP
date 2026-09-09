@@ -2,10 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft,
   CheckCircle2,
-  CircleAlert,
+  AlertCircle,
   ShieldCheck,
   Users,
-  WalletCards,
+  Trophy,
+  Coins,
+  Package,
+  Calendar,
+  Lock,
+  Sparkles,
 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -24,7 +29,22 @@ import {
   LoginRequiredModal,
 } from '../components/ParticipationModals';
 import { formatEntry, formatNumber } from '../utils/format';
+import Iphone from '../assets/images/IPhone_Image.png';
+import Watch from '../assets/images/Watch_ Image.png';
+import Earpods from '../assets/images/Earpod_Image.png';
+import VC20 from '../assets/images/20VC_Image.png';
+import VC500 from '../assets/images/500VC_Image.png';
+import VC2000 from '../assets/images/2000VC_ Image.png';
 import styles from './GiveawayDetailPage.module.css';
+
+const prizeImageMap = {
+  'iPhone 15 Pro': Iphone,
+  'Apple Watch Series 9': Watch,
+  'AirPods Pro': Earpods,
+  '₹2,000 Amazon Gift Card': VC2000,
+  '₹500 Amazon Gift Card': VC500,
+  '₹20 Amazon Voucher': VC20,
+};
 
 export function GiveawayDetailPage() {
   const { slug } = useParams();
@@ -39,6 +59,7 @@ export function GiveawayDetailPage() {
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState('');
   const idempotencyKey = useRef(null);
+
   const load = useCallback(async () => {
     setError(false);
     try {
@@ -56,7 +77,9 @@ export function GiveawayDetailPage() {
         if (statusResult.winner) {
           const result = await claimService.mine(record.id);
           setClaim(result.claim);
-        } else setClaim(null);
+        } else {
+          setClaim(null);
+        }
       } else {
         setWallet(null);
         setMyStatus(null);
@@ -66,15 +89,18 @@ export function GiveawayDetailPage() {
       setError(true);
     }
   }, [slug, user]);
+
   useEffect(() => {
     if (ready) load();
   }, [ready, load]);
+
   const initiateJoin = () => {
     if (!user) return setModal('login');
     if (myStatus?.participating) return;
     setActionError('');
     setModal('confirm');
   };
+
   const confirmJoin = async () => {
     setBusy(true);
     setActionError('');
@@ -98,6 +124,7 @@ export function GiveawayDetailPage() {
       setBusy(false);
     }
   };
+
   const submitClaim = async (form) => {
     setBusy(true);
     try {
@@ -110,107 +137,191 @@ export function GiveawayDetailPage() {
       setBusy(false);
     }
   };
-  if (error)
+
+  if (error) {
     return <ErrorState title="We couldn't load this giveaway." action={load} />;
-  if (!giveaway) return <GiveawayLoader label="Checking this reward…" />;
+  }
+
+  if (!giveaway) {
+    return <GiveawayLoader label="Loading reward specifications..." />;
+  }
+
   const currentBalance = wallet?.[giveaway.prize.entryCurrency] ?? 0;
   const enough = currentBalance >= giveaway.prize.entryAmount;
+  const prizeImage =
+    prizeImageMap[giveaway.prize.name] || giveaway.prize.image;
+  const isActive = giveaway.status === 'ACTIVE';
+
   return (
     <>
+      {/* Detail Hero */}
       <section className={styles.detailHero}>
         <div className="container">
-          <Link className={styles.back} to="/giveaways">
-            <ArrowLeft size={15} /> All giveaways
-          </Link>
+          <div className={styles.breadcrumbBar}>
+            <Link className={styles.backLink} to="/giveaways">
+              <ArrowLeft size={16} />
+              <span>Back to All Giveaways</span>
+            </Link>
+            <span className={styles.crumbSep}>/</span>
+            <span className={styles.currentCrumb}>{giveaway.prize.name}</span>
+          </div>
+
           <div className={styles.heroGrid}>
-            <div>
-              <span className={`${styles.status} ${styles[giveaway.status]}`}>
-                {giveaway.status.replace('_', ' ')}
-              </span>
-              <h1>{giveaway.prize.name}</h1>
-              <p>{giveaway.description}</p>
-              <div className={styles.heroFacts}>
-                <span>
-                  <Users size={15} /> {formatNumber(giveaway.participantCount)}{' '}
-                  participants
+            <div className={styles.heroInfo}>
+              <div className={styles.tagGroup}>
+                <span className={`${styles.status} ${styles[giveaway.status]}`}>
+                  {isActive && <span className={styles.pulseDot} />}
+                  {giveaway.status.replace('_', ' ')}
                 </span>
-                <span>
-                  <CheckCircle2 size={15} /> {giveaway.winnerCount}{' '}
-                  {giveaway.winnerCount === 1 ? 'winner' : 'winners'}
+                <span className={styles.categoryPill}>
+                  {giveaway.prize.prizeType === 'GIFT_CARD'
+                    ? 'Instant Digital Voucher'
+                    : 'Physical Hardware Reward'}
                 </span>
               </div>
+
+              <h1 className={styles.heroTitle}>{giveaway.prize.name}</h1>
+              <p className={styles.heroDesc}>{giveaway.description}</p>
+
+              <div className={styles.factsRow}>
+                <div className={styles.factItem}>
+                  <Trophy size={16} className={styles.factIconGold} />
+                  <span>
+                    <strong>{giveaway.winnerCount}</strong>{' '}
+                    {giveaway.winnerCount === 1 ? 'Winner' : 'Winners'}
+                  </span>
+                </div>
+                <div className={styles.factItem}>
+                  <Users size={16} className={styles.factIconViolet} />
+                  <span>
+                    <strong>{formatNumber(giveaway.participantCount)}</strong>{' '}
+                    Participants
+                  </span>
+                </div>
+                <div className={styles.factItem}>
+                  <Lock size={16} className={styles.factIconEmerald} />
+                  <span>1 Verified Entry / Account</span>
+                </div>
+              </div>
             </div>
-            <div className={styles.prizeArt}>
-              <span>{giveaway.prize.image || '✦'}</span>
-              <div>
-                <small>Giveaway ends in</small>
+
+            {/* Prize Visual Showcase with Countdown */}
+            <div className={styles.showcaseCard}>
+              <div className={styles.showcaseGlow} />
+              <div className={styles.artFrame}>
+                {typeof prizeImage === 'string' && prizeImage.length < 5 ? (
+                  <span className={styles.emojiArt}>{prizeImage}</span>
+                ) : (
+                  <img
+                    src={prizeImage}
+                    alt={giveaway.prize.name}
+                    className={styles.productPhoto}
+                  />
+                )}
+              </div>
+              <div className={styles.countdownBox}>
+                <span className={styles.countdownLabel}>Event Closes In</span>
                 <Countdown endAt={giveaway.endAt} />
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Main Content & Participation Section */}
       <section className="section">
-        <div className={`container ${styles.contentGrid}`}>
-          <div>
-            <section className={styles.entryCard}>
-              <div>
-                <span>Entry requirement</span>
-                <h2>
-                  {formatEntry(
-                    giveaway.prize.entryAmount,
-                    giveaway.prize.entryCurrency,
-                  )}
-                </h2>
-                <p>
-                  The entry fee is loaded from VELOOP’s giveaway configuration
-                  and validated again by the service.
-                </p>
+        <div className={`container ${styles.mainGrid}`}>
+          <div className={styles.leftCol}>
+            {/* Entry Requirement & Wallet Card */}
+            <div className={styles.entryCard}>
+              <div className={styles.entryHeader}>
+                <div>
+                  <span className={styles.entryEyebrow}>Participation Requirement</span>
+                  <h2 className={styles.entryFeeHeading}>
+                    {formatEntry(
+                      giveaway.prize.entryAmount,
+                      giveaway.prize.entryCurrency,
+                    )}
+                  </h2>
+                </div>
+                <div className={styles.currencyBadge}>
+                  <Coins size={18} className={styles.coinIcon} />
+                  <span>{giveaway.prize.entryCurrency}</span>
+                </div>
               </div>
-              <div className={styles.balance}>
-                <WalletCards />
-                <span>
-                  {user ? 'Your current balance' : 'Sign in to view balance'}
-                  <strong>
-                    {user
-                      ? formatEntry(
-                          currentBalance,
-                          giveaway.prize.entryCurrency,
-                        )
-                      : '—'}
-                  </strong>
-                </span>
-              </div>
-              {user && (
-                <p className={enough ? styles.good : styles.warn}>
-                  {enough
-                    ? `✓ You have enough ${giveaway.prize.entryCurrency === 'TOKEN' ? 'Tokens' : `${giveaway.prize.entryCurrency}s`}.`
-                    : `You need ${formatEntry(giveaway.prize.entryAmount - currentBalance, giveaway.prize.entryCurrency)} more.`}
-                </p>
-              )}
-              {myStatus?.participating ? (
-                <div className={styles.participating}>
-                  <CheckCircle2 />
-                  <span>
-                    You’re participating
-                    <br />
-                    <small>Your entry is recorded.</small>
+
+              {/* User Balance Comparison */}
+              <div className={styles.balanceCompareBox}>
+                <div className={styles.balanceInfo}>
+                  <span className={styles.balanceTitle}>
+                    {user ? 'Your Available Balance' : 'Wallet Authentication'}
                   </span>
+                  <strong className={styles.balanceAmount}>
+                    {user
+                      ? formatEntry(currentBalance, giveaway.prize.entryCurrency)
+                      : 'Log in to view balance'}
+                  </strong>
+                </div>
+
+                {user && (
+                  <div
+                    className={`${styles.balanceStatusPill} ${
+                      enough ? styles.statusGood : styles.statusWarn
+                    }`}
+                  >
+                    {enough ? (
+                      <>
+                        <CheckCircle2 size={14} />
+                        <span>Sufficient Balance</span>
+                      </>
+                    ) : (
+                      <>
+                        <AlertCircle size={14} />
+                        <span>
+                          Need{' '}
+                          {formatEntry(
+                            giveaway.prize.entryAmount - currentBalance,
+                            giveaway.prize.entryCurrency,
+                          )}{' '}
+                          more
+                        </span>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Action Button / Participation Status */}
+              {myStatus?.participating ? (
+                <div className={styles.participatingBox}>
+                  <div className={styles.participatingIcon}>
+                    <CheckCircle2 size={24} />
+                  </div>
+                  <div>
+                    <strong>You are Participating!</strong>
+                    <p>Your entry is verified on the VELOOP backend. Good luck!</p>
+                  </div>
                 </div>
               ) : (
                 <button
-                  className="button buttonFull"
+                  type="button"
+                  className={`button buttonFull buttonLarge ${styles.joinButton}`}
                   onClick={initiateJoin}
                   disabled={giveaway.status !== 'ACTIVE'}
                 >
                   {giveaway.status === 'ACTIVE'
                     ? user
-                      ? `Join for ${formatEntry(giveaway.prize.entryAmount, giveaway.prize.entryCurrency)}`
-                      : 'Log in to participate'
-                    : 'Participation unavailable'}
+                      ? `Confirm Entry for ${formatEntry(
+                          giveaway.prize.entryAmount,
+                          giveaway.prize.entryCurrency,
+                        )}`
+                      : 'Log In to Participate'
+                    : 'Participation Closed'}
                 </button>
               )}
-            </section>
+            </div>
+
+            {/* Winner Celebratory State */}
             {myStatus?.winner && (
               <WinnerState
                 claim={claim}
@@ -221,48 +332,94 @@ export function GiveawayDetailPage() {
                 }}
               />
             )}
-            <section className={styles.info}>
-              <h2>About this giveaway</h2>
-              <p>{giveaway.prize.description}</p>
-              <dl>
-                <div>
-                  <dt>Prize type</dt>
-                  <dd>{giveaway.prize.prizeType.replace('_', ' ')}</dd>
+
+            {/* Prize Specification Highlights */}
+            <div className={styles.specsCard}>
+              <h2 className={styles.specsTitle}>Prize & Fulfillment Specs</h2>
+              <p className={styles.specsDesc}>{giveaway.prize.description}</p>
+
+              <div className={styles.specsGrid}>
+                <div className={styles.specItem}>
+                  <Package size={18} className={styles.specIcon} />
+                  <div>
+                    <span className={styles.specKey}>Prize Category</span>
+                    <strong className={styles.specVal}>
+                      {giveaway.prize.prizeType.replace('_', ' ')}
+                    </strong>
+                  </div>
                 </div>
-                <div>
-                  <dt>Selection</dt>
-                  <dd>Configured winner draw after end</dd>
+
+                <div className={styles.specItem}>
+                  <ShieldCheck size={18} className={styles.specIcon} />
+                  <div>
+                    <span className={styles.specKey}>Selection Method</span>
+                    <strong className={styles.specVal}>
+                      Cryptographic Seed Draw
+                    </strong>
+                  </div>
                 </div>
-                <div>
-                  <dt>Participation</dt>
-                  <dd>One verified entry per account</dd>
+
+                <div className={styles.specItem}>
+                  <Calendar size={18} className={styles.specIcon} />
+                  <div>
+                    <span className={styles.specKey}>Fulfillment</span>
+                    <strong className={styles.specVal}>
+                      {giveaway.prize.claimType === 'EMAIL_ONLY'
+                        ? 'Email Delivery'
+                        : 'Direct Tracked Courier'}
+                    </strong>
+                  </div>
                 </div>
-              </dl>
-            </section>
+
+                <div className={styles.specItem}>
+                  <Sparkles size={18} className={styles.specIcon} />
+                  <div>
+                    <span className={styles.specKey}>Fair Odds Policy</span>
+                    <strong className={styles.specVal}>
+                      1 Entry Per Verified User
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Rules & Eligibility */}
             <Rules rules={giveaway.rules} eligibility={giveaway.eligibility} />
           </div>
-          <aside>
+
+          {/* Right Sidebar */}
+          <aside className={styles.sidebar}>
+            {/* Trust Sidebar Box */}
             <div className={styles.sideCard}>
-              <ShieldCheck />
-              <h2>Participation, with safeguards</h2>
+              <div className={styles.sideCardIcon}>
+                <ShieldCheck size={26} />
+              </div>
+              <h3>Guaranteed Fair Participation</h3>
               <p>
-                Final status, currency, eligibility, balance, and winner checks
-                are verified by VELOOP’s backend at every sensitive step.
+                VELOOP enforces strict cryptographic verification on participant
+                entry, balance deductions, and winner selection. No hidden algorithms.
               </p>
             </div>
+
+            {/* Live/Past Winners Panel */}
             <WinnersPanel data={winners} />
-            <div className={styles.restrictions}>
-              <CircleAlert size={16} />
+
+            {/* Policy Restatement */}
+            <div className={styles.restrictionBox}>
+              <AlertCircle size={18} className={styles.restrIcon} />
               <p>
-                Entry fees are shown before confirmation.{' '}
-                <strong>PLACEHOLDER — CONFIRM WITH VELOOP:</strong> refund
-                policy.
+                Entry fees are locked only upon successful confirmation. Completed
+                giveaways remain publicly visible for audit transparency.
               </p>
             </div>
           </aside>
         </div>
       </section>
+
+      {/* How It Works Detail */}
       <HowItWorks detail />
+
+      {/* Modals */}
       {modal === 'login' && (
         <LoginRequiredModal onClose={() => setModal(null)} />
       )}

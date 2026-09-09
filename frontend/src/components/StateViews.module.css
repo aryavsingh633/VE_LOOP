@@ -1,23 +1,55 @@
-.state {
-  min-height: 260px;
-  display: grid;
-  place-content: center;
+.stateCard {
+  min-height: 320px;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: var(--text-muted);
-  padding: 24px;
+  padding: 48px 24px;
+  margin: 32px 0;
+  box-shadow: var(--shadow-sm);
 }
-.state svg {
-  margin: auto;
+
+.errorIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #fb7185;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+}
+
+.emptyIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   color: var(--violet-light);
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
 }
-.state h2 {
+
+.stateCard h2 {
   font-family: Sora, sans-serif;
-  font-size: 19px;
-  color: var(--text);
-  margin: 13px 0 5px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
 }
-.state p {
-  font-size: 14px;
-  margin: 0 0 16px;
-  max-width: 350px;
+
+.stateCard p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  max-width: 440px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }

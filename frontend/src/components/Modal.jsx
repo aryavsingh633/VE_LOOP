@@ -5,6 +5,7 @@ import styles from './Modal.module.css';
 export function Modal({ title, children, onClose }) {
   const headingId = useId();
   const modalRef = useRef(null);
+
   useEffect(() => {
     const handler = (event) => {
       if (event.key === 'Escape') return onClose();
@@ -29,8 +30,10 @@ export function Modal({ title, children, onClose }) {
     modalRef.current?.querySelector('button')?.focus();
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
+
   return (
     <div className={styles.backdrop} onMouseDown={onClose}>
+      <div className={styles.ambientGlow} />
       <section
         ref={modalRef}
         className={styles.modal}
@@ -39,16 +42,20 @@ export function Modal({ title, children, onClose }) {
         aria-labelledby={headingId}
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <button
-          type="button"
-          className={styles.close}
-          aria-label="Close dialog"
-          onClick={onClose}
-        >
-          <X size={20} />
-        </button>
-        <h2 id={headingId}>{title}</h2>
-        {children}
+        <div className={styles.modalHeader}>
+          <h2 id={headingId} className={styles.title}>
+            {title}
+          </h2>
+          <button
+            type="button"
+            className={styles.close}
+            aria-label="Close dialog"
+            onClick={onClose}
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className={styles.modalBody}>{children}</div>
       </section>
     </div>
   );

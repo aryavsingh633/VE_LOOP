@@ -1,114 +1,367 @@
-.wrap {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 60px;
-  align-items: center;
-  min-height: 420px;
-}
-.wrap h1 {
-  font-family: Sora, sans-serif;
-  font-size: 46px;
-  color: var(--text);
-  letter-spacing: -0.03em;
-  margin: 10px 0;
-}
-.id {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 25px;
+.pageWrap {
+  min-height: calc(100vh - 74px);
 }
 
-.wallet {
-  background: linear-gradient(160deg, var(--violet-dark), var(--indigo));
-  color: #fff;
-  border-radius: 20px;
-  padding: 28px;
-  box-shadow: 0 24px 50px -18px rgba(124, 58, 237, 0.55);
+/* Header Section */
+.headerSection {
+  background: linear-gradient(180deg, rgba(18, 15, 36, 0.7) 0%, rgba(7, 6, 14, 0.4) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 0;
 }
-.walletHead {
+
+.userBanner {
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
 }
-.walletHead > svg {
-  color: var(--gold);
+
+.avatarWrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px -6px rgba(139, 92, 246, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
-.walletHead span {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 800;
-}
-.walletHead h2 {
+
+.avatarText {
   font-family: Sora, sans-serif;
   font-size: 24px;
-  margin: 3px 0;
+  font-weight: 800;
+  color: #ffffff;
 }
-.wallet > p {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.6;
-  margin: 20px 0;
+
+.verifiedDot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 8px #10b981;
 }
-.balances {
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.userTopline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.activePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.memberId {
+  font-family: monospace, sans-serif;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.userName {
+  font-family: Sora, sans-serif;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.userEmail {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.userActions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Wallet Header */
+.walletHeader {
+  margin-bottom: 36px;
+}
+
+.goldIcon {
+  color: var(--gold);
+}
+
+.walletTitle {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.walletSubtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 620px;
+}
+
+/* Balances Grid */
+.balancesGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.balances div {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 14px;
-  border-radius: 11px;
-}
-.balances span {
-  display: block;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.balances strong {
-  font-size: 15px;
-  display: block;
-  margin-top: 5px;
-  font-family: Sora, sans-serif;
+  gap: 28px;
+  margin-bottom: 48px;
 }
 
-.unauth {
-  min-height: 450px;
+.currencyCard {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.currencyCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--currency-color);
+}
+
+.currencyTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.currencyIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
   display: grid;
-  place-content: center;
-  text-align: center;
-  padding: 20px;
-}
-.unauth svg {
-  margin: auto;
-  color: var(--violet-light);
-}
-.unauth h1 {
-  font-family: Sora, sans-serif;
-  font-size: 27px;
-  color: var(--text);
-  margin: 16px 0 5px;
-}
-.unauth p {
-  max-width: 410px;
-  color: var(--text-muted);
-  font-size: 14px;
-  margin: 0 auto 18px;
+  place-items: center;
 }
 
-@media (max-width: 700px) {
-  .wrap {
-    grid-template-columns: 1fr;
-    gap: 30px;
+.currencyBadge {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+}
+
+.currencyAmountWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.amountNum {
+  font-family: Sora, sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.currencyFullName {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.currencyDesc {
+  font-size: 13px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.cardFooter {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.useLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--violet-light);
+  transition: color 0.18s;
+}
+
+.useLink:hover {
+  color: #ffffff;
+}
+
+/* Security Banner */
+.securityBanner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.shieldWrap {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.securityContent h3 {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.securityContent p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Unauth Section */
+.unauthSection {
+  padding: 100px 0;
+}
+
+.unauthCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: 56px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.lockWrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--violet-light);
+  display: grid;
+  place-items: center;
+  margin-bottom: 24px;
+}
+
+.unauthCard h1 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.unauthCard p {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.unauthActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .balancesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
-  .balances {
+}
+
+@media (max-width: 768px) {
+  .balancesGrid {
     grid-template-columns: 1fr;
   }
-  .wrap h1 {
-    font-size: 37px;
+  .userBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .userActions {
+    margin-left: 0;
+    width: 100%;
+  }
+  .securityBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerSection {
+    padding: 32px 0 28px;
+  }
+  .userTopline {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .currencyCard {
+    padding: 20px 16px;
+    gap: 14px;
+  }
+  .amountNum {
+    font-size: 26px;
+  }
+  .securityBanner {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+  .unauthCard {
+    padding: 32px 18px;
+  }
+  .unauthActions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .unauthActions a,
+  .unauthActions button {
+    width: 100%;
+    justify-content: center;
   }
 }

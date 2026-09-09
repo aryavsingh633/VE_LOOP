@@ -1,87 +1,301 @@
 .hero {
-  padding: 88px 0;
-  background: var(--bg-soft);
+  position: relative;
+  padding: 64px 0 40px;
+  background: linear-gradient(180deg, rgba(18, 15, 36, 0.6) 0%, rgba(7, 6, 14, 0.4) 100%);
   border-bottom: 1px solid var(--border);
 }
-.hero h1 {
-  font-family: Sora, sans-serif;
-  font-size: clamp(36px, 4.6vw, 56px);
-  letter-spacing: -0.03em;
-  margin: 10px 0;
-  color: #fff;
+
+.heroContent {
+  max-width: 680px;
 }
-.hero p {
+
+.goldIcon {
+  color: var(--gold);
+}
+
+.title {
+  font-family: Sora, sans-serif;
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.desc {
+  font-size: 16px;
   color: var(--text-muted);
-  max-width: 560px;
-  font-size: 15px;
   line-height: 1.6;
 }
 
+/* Controls Bar */
+.controlsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.statChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.statChip strong {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 4px;
+}
+
+.filterBtn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  transition: all 0.18s;
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  color: var(--text);
+}
+
+.activeFilter {
+  background: var(--gradient-cta);
+  color: #ffffff !important;
+}
+
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-.grid article {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  padding: 22px;
-  border-radius: 16px;
-  transition: border-color 0.2s;
-}
-.grid article:hover {
-  border-color: var(--border-strong);
-}
-.grid article > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.grid svg {
-  color: var(--gold);
-}
-.grid span,
-.grid small {
-  font-size: 10px;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 800;
-}
-.grid h2 {
-  font-family: Sora, sans-serif;
-  font-size: 19px;
-  color: var(--text);
-  letter-spacing: -0.02em;
-  margin: 24px 0 5px;
-}
-.grid strong {
-  color: var(--violet-light);
-  font-size: 14px;
-}
-.grid p {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 13px 0 5px;
-}
-.grid time {
-  color: var(--text-faint);
-  font-size: 12px;
-}
-.grid small {
-  float: right;
-  background: var(--surface-2);
-  padding: 5px 7px;
-  border-radius: 5px;
+  gap: 24px;
 }
 
-@media (max-width: 720px) {
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+}
+
+.typePill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet-light);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+}
+
+.statusPill {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.cardVisual {
+  height: 160px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 65%);
+}
+
+.prizePhoto {
+  max-width: 140px;
+  max-height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.genericTrophy {
+  color: var(--gold);
+}
+
+.cardBody {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prizeName {
+  font-family: Sora, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.giveawayRef {
+  font-size: 13px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.winnerMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 6px;
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkIcon {
+  color: var(--emerald);
+}
+
+.maskedId {
+  font-family: monospace, sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.timeTag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+/* Bottom Banner */
+.bottomBanner {
+  margin-top: 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.shieldIcon {
+  color: var(--emerald);
+  flex-shrink: 0;
+}
+
+.bottomBanner h4 {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.bottomBanner p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.bottomBanner a {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+@media (min-width: 1920px) {
   .grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
-@media (max-width: 450px) {
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bottomBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bottomBanner a {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+  .controlsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .filterGroup {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 3px;
+  }
+  .filterGroup::-webkit-scrollbar {
+    display: none;
+  }
+  .filterBtn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 7px 14px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 36px 0 24px;
+  }
+  .bottomBanner {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+  .winnerMeta {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
